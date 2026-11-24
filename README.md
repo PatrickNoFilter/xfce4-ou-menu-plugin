@@ -23,9 +23,12 @@ distribution, ISO details, and screenshots.
 - Custom panel button icon using the OU Linux mascot.
 - A **System Language Settings** tab in Properties for selecting the session
   language through `~/.xsessionrc`.
-- A **Panel Preferences** tab with Xfce panel controls (row size, rows, border
-  width, lock, reserve space, autohide) stored directly in xfconf, plus a button
-  for the full native Panel Preferences dialog.
+- A **Panel Preferences** tab with **Display**, **Appearance** and **Items**
+  sub-tabs, mirroring the native Xfce Panel Preferences dialog. All controls are
+  stored directly in xfconf: mode, lock, autohide, reserve space, span monitors,
+  row size, number of rows, border width, automatic length, background style and
+  colour, opacity, icon size, dark mode, and the panel item list with Add,
+  Configure and Remove actions.
 
 ![Panel Preferences tab](assets/panel-preferences.png)
 - An **OU Menu Setting** entry in the desktop right-click menu, directly below
