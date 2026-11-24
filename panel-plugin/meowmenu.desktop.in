@@ -1,9 +1,9 @@
 [Xfce Panel]
 Type=X-XFCE-PanelPlugin
 Encoding=UTF-8
-Name=Meow Menu
+Name=OU Menu
 Comment=Show a menu to easily access installed applications
-Icon=org.xfce.panel.meowmenu
+Icon=ou-menu
 X-XFCE-Module=meowmenu
 X-XFCE-Internal=false
 X-XFCE-API=2.0

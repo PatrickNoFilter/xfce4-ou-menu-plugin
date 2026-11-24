@@ -104,9 +104,11 @@ int main(int argc, char** argv)
 	gboolean at_center = FALSE;
 	gboolean print_version = FALSE;
 	gboolean list_instances = FALSE;
+	gboolean show_settings = FALSE;
 	gint instance_number = 0;
 	const GOptionEntry entries[] =
 	{
+		{ "settings", 's', 0, G_OPTION_ARG_NONE, &show_settings, _("Open OU Menu settings"), nullptr },
 		{ "pointer", 'p', 0, G_OPTION_ARG_NONE, &at_pointer, _("Popup menu at current mouse position"), nullptr },
 		{ "center", 'c', 0, G_OPTION_ARG_NONE, &at_center, _("Popup menu at center of screen"), nullptr },
 		{ "list", 'l', 0, G_OPTION_ARG_NONE, &list_instances, _("Print available menu instance IDs"), nullptr },
@@ -162,7 +164,7 @@ int main(int argc, char** argv)
 	GVariant* variant = g_variant_new_variant(g_variant_new_int32(at_pointer + (at_center * 2)));
 	GVariant* ret = g_dbus_proxy_call_sync(proxy,
 			"PluginEvent",
-			g_variant_new("(ss@v)", instance.c_str(), "popup", variant),
+			g_variant_new("(ss@v)", instance.c_str(), show_settings ? "settings" : "popup", variant),
 			G_DBUS_CALL_FLAGS_NONE,
 			-1,
 			nullptr,

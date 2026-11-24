@@ -176,8 +176,29 @@ Plugin::Plugin(XfcePanelPlugin* plugin) :
 		});
 
 	xfce_panel_plugin_menu_show_about(plugin);
-	xfce_panel_plugin_menu_show_configure(plugin);
+	// The default "Properties" entry is intentionally not shown; settings are
+	// reachable through the "OU Menu Setting" entry below and the desktop menu.
 	xfce_panel_plugin_menu_insert_item(plugin, GTK_MENU_ITEM(m_settings->command[Settings::CommandMenuEditor]->get_menuitem()));
+
+	// Clickable "OU Menu Setting" entry in the panel plugin context menu.
+	GtkWidget* ou_settings_item = gtk_menu_item_new_with_label(_("OU Menu Setting"));
+	gtk_widget_show(ou_settings_item);
+	xfce_panel_plugin_menu_insert_item(plugin, GTK_MENU_ITEM(ou_settings_item));
+	connect(ou_settings_item, "activate",
+		[this](GtkMenuItem*)
+		{
+			configure();
+		});
+
+	// Clickable "Applications" entry that opens the application menu.
+	GtkWidget* ou_app_menu_item = gtk_menu_item_new_with_label(_("Applications"));
+	gtk_widget_show(ou_app_menu_item);
+	xfce_panel_plugin_menu_insert_item(plugin, GTK_MENU_ITEM(ou_app_menu_item));
+	connect(ou_app_menu_item, "activate",
+		[this](GtkMenuItem*)
+		{
+			show_menu(Window::PositionAtButton);
+		});
 
 	mode_changed(xfce_panel_plugin_get_mode(m_plugin));
 
@@ -428,6 +449,12 @@ void Plugin::mode_changed(XfcePanelPluginMode mode)
 
 gboolean Plugin::remote_event(const gchar* name, const GValue* value)
 {
+	if (!strcmp(name, "settings"))
+	{
+		configure();
+		return true;
+	}
+
 	if (strcmp(name, "popup"))
 	{
 		return false;

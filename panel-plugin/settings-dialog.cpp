@@ -68,14 +68,14 @@ SettingsDialog::SettingsDialog(Settings* settings, Plugin* plugin) :
 	m_plugin(plugin)
 {
 	// Create dialog window
-	m_window = xfce_titled_dialog_new_with_mixed_buttons(_("Meow Menu"),
+	m_window = xfce_titled_dialog_new_with_mixed_buttons(_("OU Menu Setting"),
 			nullptr,
 			GtkDialogFlags(0),
 			"help-browser", _("_Help"), GTK_RESPONSE_HELP,
 			"window-close-symbolic", _("_Close"), GTK_RESPONSE_CLOSE,
 			nullptr);
 	gtk_window_set_type_hint(GTK_WINDOW(m_window), GDK_WINDOW_TYPE_HINT_NORMAL);
-	gtk_window_set_icon_name(GTK_WINDOW(m_window), "org.xfce.panel.meowmenu");
+	gtk_window_set_icon_name(GTK_WINDOW(m_window), "ou-menu-settings");
 	gtk_window_set_position(GTK_WINDOW(m_window), GTK_WIN_POS_CENTER);
 
 	connect(m_window, "response",
@@ -105,6 +105,7 @@ SettingsDialog::SettingsDialog(Settings* settings, Plugin* plugin) :
 	add_page(init_sidebar_tab(),       "sidebar", _("Sidebar"));
 	add_page(init_places_tab(),        "places",  _("Places"));
 	add_page(init_extras_tab(),        "extras",  _("Extras"));
+	add_page(init_system_language_tab(), "system-language", "System Language Settings");
 
 	GtkStackSidebar* sidebar = GTK_STACK_SIDEBAR(gtk_stack_sidebar_new());
 	gtk_stack_sidebar_set_stack(sidebar, stack);
@@ -263,7 +264,10 @@ void SettingsDialog::choose_icon()
 #else
 		gchar* icon = exo_icon_chooser_dialog_get_icon(EXO_ICON_CHOOSER_DIALOG(chooser));
 #endif
-		gtk_image_set_from_icon_name(GTK_IMAGE(m_icon), icon, GTK_ICON_SIZE_DIALOG);
+		if (g_path_is_absolute(icon))
+			gtk_image_set_from_file(GTK_IMAGE(m_icon), icon);
+		else
+			gtk_image_set_from_icon_name(GTK_IMAGE(m_icon), icon, GTK_ICON_SIZE_DIALOG);
 		m_plugin->set_button_icon_name(icon);
 		g_free(icon);
 	}

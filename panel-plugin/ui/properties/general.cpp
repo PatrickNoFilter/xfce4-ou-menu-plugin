@@ -628,7 +628,10 @@ GtkWidget* SettingsDialog::init_general_tab()
 			choose_icon();
 		});
 
-	m_icon = gtk_image_new_from_icon_name(m_settings->button_icon_name, GTK_ICON_SIZE_DIALOG);
+	if (g_path_is_absolute(m_settings->button_icon_name))
+		m_icon = gtk_image_new_from_file(m_settings->button_icon_name);
+	else
+		m_icon = gtk_image_new_from_icon_name(m_settings->button_icon_name, GTK_ICON_SIZE_DIALOG);
 	gtk_container_add(GTK_CONTAINER(m_icon_button), m_icon);
 	gtk_widget_set_sensitive(m_icon_button, static_cast<bool>(m_settings->button_icon_visible));
 
