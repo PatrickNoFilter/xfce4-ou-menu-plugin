@@ -75,6 +75,7 @@ plugin_sources = [
   'ui/properties/places.cpp',
 	'ui/properties/extras.cpp',
   'ui/properties/system-language.cpp',
+  'ui/properties/panel-preferences.cpp',
   'ui/slot.h',
   'ui/switch-icons.cpp',
   'core/window.cpp',

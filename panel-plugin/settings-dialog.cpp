@@ -106,6 +106,7 @@ SettingsDialog::SettingsDialog(Settings* settings, Plugin* plugin) :
 	add_page(init_places_tab(),        "places",  _("Places"));
 	add_page(init_extras_tab(),        "extras",  _("Extras"));
 	add_page(init_system_language_tab(), "system-language", "System Language Settings");
+	add_page(init_panel_preferences_tab(), "panel-preferences", "Panel Preferences");
 
 	GtkStackSidebar* sidebar = GTK_STACK_SIDEBAR(gtk_stack_sidebar_new());
 	gtk_stack_sidebar_set_stack(sidebar, stack);
