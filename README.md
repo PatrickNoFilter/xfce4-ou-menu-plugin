@@ -1,96 +1,38 @@
-# MeowMenu: a modern and configurable XFCE application launcher
+# OU Menu
 
-<p align="center">
-  <a href="https://www.xfce.org/"><img src="https://img.shields.io/badge/Xfce-4.16%2B-2284F2?logo=xfce&amp;logoColor=white" alt="Xfce 4.16 or later"></a>
-  <a href="https://github.com/matteobonanomi/xfce4-meowmenu-plugin/releases"><img src="https://img.shields.io/github/v/release/matteobonanomi/xfce4-meowmenu-plugin?include_prereleases" alt="Version"></a>
-  <a href="https://github.com/matteobonanomi/xfce4-meowmenu-plugin/actions/workflows/ci.yml"><img src="https://github.com/matteobonanomi/xfce4-meowmenu-plugin/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
-  <a href="COPYING"><img src="https://img.shields.io/badge/License-GPLv2%2B-blue.svg" alt="License: GPL v2+"></a>
-  <a href="https://isocpp.org/"><img src="https://img.shields.io/badge/language-C%2B%2B-00599C.svg" alt="Language: C++"></a>
-  <a href="https://www.gtk.org/"><img src="https://img.shields.io/badge/toolkit-GTK%203-7FAE3D.svg" alt="Toolkit: GTK 3"></a>
-</p>
+A customized XFCE panel application launcher for the OU Linux desktop.
 
-![MeowMenu demo](docs/assets/images/demo.gif)
+OU Menu is based on **Meow Menu** by Matteo Bonanomi
+(https://github.com/matteobonanomi/xfce4-meowmenu-plugin), which is itself a fork
+of **Xfce Whisker Menu** by Graeme Gott. This project keeps the upstream
+GPL-2.0-or-later license; see [COPYING](COPYING) for the full license text and
+copyright notices.
 
-<p align="center"><strong><a href="https://github.com/matteobonanomi/xfce4-meowmenu-plugin/releases">Releases</a></strong> | <strong><a href="https://matteobonanomi.github.io/xfce4-meowmenu-plugin/">Documentation</a></strong> | <strong><a href="https://aur.archlinux.org/packages/xfce4-meowmenu-plugin">AUR</a></strong></p>
+## What is different here
 
-MeowMenu is a native Xfce panel launcher and a standalone fork of
-[Whisker Menu](https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin).
-It adds saved presets, Places integration, flexible docked, centered, and
-full-screen layouts, drag-and-drop actions, and an optional inline Calculator
-while keeping a familiar launcher workflow.
+- OU Menu branding: dialog title, plugin name, and OU Linux logo.
+- Custom panel button icon using the OU Linux mascot.
+- A **System Language Settings** tab in Properties for selecting the session
+  language through `~/.xsessionrc`.
+- An **OU Menu Setting** entry in the desktop right-click menu, directly below
+  *Desktop Settings*.
+- A clickable **OU Menu Setting** entry and an **Applications** entry in the
+  panel icon's right-click menu; the default *Properties* entry is removed.
+- Panel-side remote event support used by `xfce4-popup-meowmenu --settings`.
 
-It is fully keyboard-driven: Tab switches Applications and Places, ordinary
-arrows follow the visible arrangement without wrapping, and Ctrl+Tab is a
-deliberate no-op. See
-[keyboard navigation](docs/keyboard-navigation.md).
-
-## Install
-
-Each GitHub Release provides native packages for Ubuntu 26.04, Debian 13, and
-Fedora 44, plus the matching source archive and `SHA256SUMS` manifest. Arch
-packaging is validated separately and is not attached as a binary; Arch users
-can use the maintainer-published
-[AUR package](https://aur.archlinux.org/packages/xfce4-meowmenu-plugin).
-Follow the [installation guide](docs/installation.md) for package commands,
-checksum verification, dependencies, source builds, removal, and full cleanup.
-
-After installation, restart the panel with `xfce4-panel -r`, then add
-**MeowMenu** through **Add New Items**.
-
-## Release channels
-
-See [Support and compatibility](docs/support.md) to choose between the latest
-release and a release candidate.
-
-## Support and compatibility
-
-MeowMenu supports Xfce 4.16 through 4.21. Xfce 4.20 on X11 is the primary
-supported setup. Wayland support is experimental.
-
-- [Support and compatibility](docs/support.md)
-- [Known limitations](docs/known-limitations.md)
-- [Testing](docs/testing.md)
-- [Translation status](docs/translations.md)
-
-## Build from source
-
-Install the dependencies in the
-[source-build guide](docs/installation.md#build-from-source), then run:
+## Build
 
 ```bash
-git clone https://github.com/matteobonanomi/xfce4-meowmenu-plugin.git
-cd xfce4-meowmenu-plugin
 meson setup build
 meson compile -C build
-meson test -C build --print-errorlogs
-sudo meson install -C build
+meson install -C build
 ```
 
-## Configure
+After installation, restart the panel with `xfce4-panel -r`.
 
-Right-click the panel button and choose **Properties**. Four built-in presets
-ship with MeowMenu: Classic, Modern, Full Screen, and Minimal. Settings live in
-Xfconf and can be changed through the graphical preferences. See the
-[preset guide](docs/presets.md) and
-[configuration reference](docs/configuration.md).
+## Credits
 
-## Contribute and report
+- [Meow Menu](https://github.com/matteobonanomi/xfce4-meowmenu-plugin) — Matteo Bonanomi
+- [Xfce Whisker Menu](https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin) — Graeme Gott
 
-- [Contributing guide](CONTRIBUTING.md)
-- [Ordinary bug reports](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/issues/new?template=bug-report.yml)
-- [Compatibility reports](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/issues/new?template=compatibility-report.yml)
-- [Security policy](.github/SECURITY.md)
-- [Translation review](docs/translations.md)
-
-MeowMenu includes 56 gettext catalogs. Technical validity, translation
-coverage, fallback behavior, and fluent review are reported separately. Italian
-and British English are currently pending maintainer fluent review; review by
-fluent speakers is welcome for every language.
-
-## License and credits
-
-MeowMenu is distributed under the [GNU General Public License v2](COPYING), or
-any later version. Original Whisker Menu was created by Graeme Gott; its
-[source remains available from Xfce](https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin).
-
-MeowMenu was developed with AI assistance; every change is maintainer-reviewed.
+Licensed under GPL-2.0-or-later.
