@@ -37,9 +37,10 @@ distribution, ISO details, and screenshots.
 - A clickable **OU Menu Setting** entry and an **Applications** entry in the
   panel icon's right-click menu; the default *Properties* entry is removed.
 - Panel-side remote event support used by `xfce4-popup-meowmenu --settings`.
-- An **Opacity** page: panel opacity uses the native Xfce window opacity, so
-  window buttons and the workspace switcher are faded too; menu opacity fades
-  only the menu background, keeping menu icons and text fully opaque.
+- An **Opacity** page: panel opacity fades only backgrounds — including the
+  tasklist buttons and workspace switcher — while panel icons and fonts stay
+  fully opaque. Menu opacity fades only the menu background. A "Restart panel
+  to apply" button reloads the panel widgets after a change.
 
 ![Opacity settings](assets/opacity.png)
 
