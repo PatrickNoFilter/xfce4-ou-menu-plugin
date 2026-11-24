@@ -37,6 +37,10 @@ distribution, ISO details, and screenshots.
 - A clickable **OU Menu Setting** entry and an **Applications** entry in the
   panel icon's right-click menu; the default *Properties* entry is removed.
 - Panel-side remote event support used by `xfce4-popup-meowmenu --settings`.
+- An **Opacity** page that fades only the panel and menu backgrounds (alpha),
+  leaving icons and text fully opaque.
+
+![Opacity settings](assets/opacity.png)
 
 ## Build
 

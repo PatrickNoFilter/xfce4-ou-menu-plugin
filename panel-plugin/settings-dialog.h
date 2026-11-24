@@ -92,6 +92,7 @@ private:
 	GtkWidget* init_extras_tab();
 	GtkWidget* init_system_language_tab();
 	GtkWidget* init_panel_preferences_tab();
+	GtkWidget* init_opacity_tab();
 
 	// Sub-section helpers used by init_search_bar_tab(); each appends one
 	// frame to @page. Split out of the tab builder to keep its translation
