@@ -38,8 +38,8 @@ void set_panel_background_alpha(XfconfChannel* channel, gdouble alpha)
 		G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &a, G_TYPE_INVALID);
 
 	xfconf_channel_set_array(channel, "/panels/panel-1/background-rgba",
-		G_TYPE_DOUBLE, r, G_TYPE_DOUBLE, g,
-		G_TYPE_DOUBLE, b, G_TYPE_DOUBLE, alpha, G_TYPE_INVALID);
+		G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
+		G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &alpha, G_TYPE_INVALID);
 
 	/* Background colour mode is required for the alpha to be used. */
 	xfconf_channel_set_int(channel, "/panels/panel-1/background-style", 1);
