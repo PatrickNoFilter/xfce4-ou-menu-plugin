@@ -8,6 +8,15 @@ of **Xfce Whisker Menu** by Graeme Gott. This project keeps the upstream
 GPL-2.0-or-later license; see [COPYING](COPYING) for the full license text and
 copyright notices.
 
+## About OU Linux
+
+OU Menu is developed as the application launcher for **OU Linux (Orang Utan Linux)**,
+a Debian 13 based distribution in the Akar (Alpha) series. See the
+[OU Linux repository](https://github.com/PatrickNoFilter/ou-linux-akar) for the
+distribution, ISO details, and screenshots.
+
+![OU Menu Settings on OU Linux](assets/ou-menu-setting.png)
+
 ## What is different here
 
 - OU Menu branding: dialog title, plugin name, and OU Linux logo.
