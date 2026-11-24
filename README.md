@@ -1,6 +1,6 @@
 # OU Menu
 
-A customized XFCE panel application launcher for the OU Linux desktop.
+A customized panel application launcher for the [Xfce](https://xfce.org/) desktop, made for OU Linux.
 
 OU Menu is based on **Meow Menu** by Matteo Bonanomi
 (https://github.com/matteobonanomi/xfce4-meowmenu-plugin), which is itself a fork
@@ -32,7 +32,8 @@ After installation, restart the panel with `xfce4-panel -r`.
 
 ## Credits
 
+- [Xfce](https://xfce.org/) — the desktop environment and panel this plugin is built for.
 - [Meow Menu](https://github.com/matteobonanomi/xfce4-meowmenu-plugin) — Matteo Bonanomi
-- [Xfce Whisker Menu](https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin) — Graeme Gott
+- [Xfce Whisker Menu](https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin) — Graeme Gott, original Whisker Menu
 
-Licensed under GPL-2.0-or-later.
+This project remains licensed under GPL-2.0-or-later.
