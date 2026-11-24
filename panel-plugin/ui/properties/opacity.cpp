@@ -20,33 +20,18 @@ using namespace WhiskerMenu;
 namespace
 {
 
-/* Panel background alpha lives in the RGBA colour property. */
-gdouble get_panel_background_alpha(XfconfChannel* channel)
+gint get_panel_opacity(XfconfChannel* channel)
 {
-	gdouble r = 0.0, g = 0.0, b = 0.0, a = 1.0;
-	xfconf_channel_get_array(channel, "/panels/panel-1/background-rgba",
-		G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
-		G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &a, G_TYPE_INVALID);
-	return a;
+	return xfconf_channel_get_int(channel, "/panels/panel-1/enter-opacity", 100);
 }
 
-void set_panel_background_alpha(XfconfChannel* channel, gdouble alpha)
+/* The native XFCE panel opacity applies to the whole panel window, including
+ * tasklist buttons and the workspace switcher. Those widgets paint their own
+ * backgrounds, so background-only alpha cannot fade them. */
+void set_panel_opacity(XfconfChannel* channel, gint opacity)
 {
-	gdouble r = 0.0, g = 0.0, b = 0.0, a = 1.0;
-	xfconf_channel_get_array(channel, "/panels/panel-1/background-rgba",
-		G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
-		G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &a, G_TYPE_INVALID);
-
-	xfconf_channel_set_array(channel, "/panels/panel-1/background-rgba",
-		G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
-		G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &alpha, G_TYPE_INVALID);
-
-	/* Background colour mode is required for the alpha to be used. */
-	xfconf_channel_set_int(channel, "/panels/panel-1/background-style", 1);
-
-	/* Whole-window opacity would fade icons and text, so neutralise it. */
-	xfconf_channel_set_int(channel, "/panels/panel-1/enter-opacity", 100);
-	xfconf_channel_set_int(channel, "/panels/panel-1/leave-opacity", 100);
+	xfconf_channel_set_int(channel, "/panels/panel-1/enter-opacity", opacity);
+	xfconf_channel_set_int(channel, "/panels/panel-1/leave-opacity", opacity);
 }
 
 } // namespace
@@ -71,13 +56,13 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 	GtkWidget* panel_label = gtk_label_new_with_mnemonic("_Panel background opacity:");
 	GtkWidget* panel_scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
 	gtk_scale_set_value_pos(GTK_SCALE(panel_scale), GTK_POS_RIGHT);
-	gtk_range_set_value(GTK_RANGE(panel_scale), get_panel_background_alpha(panel_channel) * 100.0);
+	gtk_range_set_value(GTK_RANGE(panel_scale), get_panel_opacity(panel_channel));
 	add_form_row(grid, COLUMN_C1, 0, panel_label, panel_scale, true, labels);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(panel_label), panel_scale);
 
 	connect(panel_scale, "value-changed", [panel_channel](GtkRange* range)
 	{
-		set_panel_background_alpha(panel_channel, gtk_range_get_value(range) / 100.0);
+		set_panel_opacity(panel_channel, static_cast<gint>(gtk_range_get_value(range)));
 	});
 
 	/* Menu background opacity */
@@ -98,7 +83,9 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 	gtk_box_pack_start(page, make_aligned_frame("Opacity", grid), false, false, 0);
 
 	GtkWidget* note = gtk_label_new(
-		"Only the panel and menu backgrounds are faded. Icons and text stay fully opaque.");
+		"Panel opacity fades the whole panel, including window buttons and the "
+		"workspace switcher. Menu opacity fades only the menu background; icons "
+		"and text in the menu stay fully opaque.");
 	gtk_label_set_line_wrap(GTK_LABEL(note), TRUE);
 	gtk_widget_set_halign(note, GTK_ALIGN_START);
 	gtk_box_pack_start(page, note, false, false, 0);
