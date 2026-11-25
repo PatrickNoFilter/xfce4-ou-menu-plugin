@@ -42,7 +42,8 @@ distribution, ISO details, and screenshots.
   fully opaque. Menu opacity fades only the menu background. A "Restart panel
   to apply" button reloads the panel widgets after a change.
 - A **Day / Night mode** choice that applies Adwaita / Adwaita-dark system-wide.
-  Desktop right-click menu opacity is always available (no night-mode requirement).
+  Desktop right-click menu opacity is always available (no night-mode requirement)
+  and also fades desktop icon labels.
   All opacity controls live only on this page; they were removed from General and
   from Panel Preferences > Appearance.
 

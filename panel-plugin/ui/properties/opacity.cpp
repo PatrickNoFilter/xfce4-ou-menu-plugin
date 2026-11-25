@@ -169,6 +169,35 @@ void set_night_mode(gboolean enabled)
 	g_free(command);
 }
 
+/* Desktop icon labels are drawn by xfdesktop from its own RGBA xfconf
+ * properties, so their alpha must be set there rather than through CSS. */
+void set_desktop_icon_label_alpha(gdouble alpha)
+{
+	XfconfChannel* desktop = xfconf_channel_get("xfce4-desktop");
+	const gchar* properties[] = {
+		"/desktop-icons/label-background-color",
+		"/desktop-icons/label-text-color",
+		nullptr
+	};
+
+	for (int i = 0; properties[i]; ++i)
+	{
+		gdouble r = 0.0, g = 0.0, b = 0.0, a = 1.0;
+		xfconf_channel_get_array(desktop, properties[i],
+			G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
+			G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &a, G_TYPE_INVALID);
+		xfconf_channel_set_array(desktop, properties[i],
+			G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
+			G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &alpha, G_TYPE_INVALID);
+	}
+
+	/* xfdesktop only honours its custom label colours when these flags are set. */
+	xfconf_channel_set_bool(desktop,
+		"/desktop-icons/custom-label-text-color", alpha < 0.995);
+	xfconf_channel_set_bool(desktop,
+		"/desktop-icons/custom-label-background-color", alpha < 0.995);
+}
+
 } // namespace
 
 /* init_opacity_tab:
@@ -255,7 +284,9 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 
 	connect(desktop_scale, "value-changed", [](GtkRange* range)
 	{
-		update_desktop_menu_css(TRUE, static_cast<gint>(gtk_range_get_value(range)));
+		const gint opacity = static_cast<gint>(gtk_range_get_value(range));
+		update_desktop_menu_css(TRUE, opacity);
+		set_desktop_icon_label_alpha(opacity / 100.0);
 	});
 
 	gtk_box_pack_start(page, make_aligned_frame("Opacity", grid), false, false, 0);
