@@ -45,6 +45,7 @@ distribution, ISO details, and screenshots.
   Desktop right-click menu opacity is always available (no night-mode requirement)
   and also fades desktop icon label backgrounds; a "Restart desktop to apply" button
   reloads xfdesktop so both take effect.
+- A **Quick settings opacity** slider that controls the OU Quick Settings popup.
   All opacity controls live only on this page; they were removed from General and
   from Panel Preferences > Appearance.
 
