@@ -43,7 +43,8 @@ distribution, ISO details, and screenshots.
   to apply" button reloads the panel widgets after a change.
 - A **Day / Night mode** choice that applies Adwaita / Adwaita-dark system-wide.
   Desktop right-click menu opacity is always available (no night-mode requirement)
-  and also fades desktop icon labels.
+  and also fades desktop icon label backgrounds; a "Restart desktop to apply" button
+  reloads xfdesktop so both take effect.
   All opacity controls live only on this page; they were removed from General and
   from Panel Preferences > Appearance.
 

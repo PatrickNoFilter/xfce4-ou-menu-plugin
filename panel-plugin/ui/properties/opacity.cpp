@@ -307,6 +307,17 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 	});
 	gtk_box_pack_start(page, restart, false, false, 0);
 
+	GtkWidget* restart_desktop = gtk_button_new_with_label("Restart desktop to apply");
+	connect(restart_desktop, "clicked", [](GtkButton*)
+	{
+		gchar* command = g_strdup_printf(
+			"sh -c 'pkill -x xfdesktop; sleep 1; %s/.local/bin/xfdesktop >/dev/null 2>&1 &'",
+			g_get_home_dir());
+		g_spawn_command_line_async(command, nullptr);
+		g_free(command);
+	});
+	gtk_box_pack_start(page, restart_desktop, false, false, 0);
+
 	g_object_unref(labels);
 	return wrap_in_scrolled(GTK_WIDGET(page));
 }
