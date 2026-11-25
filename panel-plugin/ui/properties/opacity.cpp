@@ -307,6 +307,12 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 
 	gtk_box_pack_start(page, make_aligned_frame("Opacity", grid), false, false, 0);
 
+	GtkWidget* tip = gtk_label_new(
+		"Night mode works best if you use opacity adjustment.");
+	gtk_label_set_line_wrap(GTK_LABEL(tip), TRUE);
+	gtk_widget_set_halign(tip, GTK_ALIGN_START);
+	gtk_box_pack_start(page, tip, false, false, 0);
+
 	GtkWidget* note = gtk_label_new(
 		"Opacity: 0% = fully transparent background, 100% = solid background. "
 		"Icons and text stay fully opaque. Click 'Restart panel to apply' after "
