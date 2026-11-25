@@ -279,13 +279,15 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 	GtkWidget* desktop_label = gtk_label_new_with_mnemonic("_Desktop menu opacity:");
 	GtkWidget* desktop_scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
 	gtk_scale_set_value_pos(GTK_SCALE(desktop_scale), GTK_POS_RIGHT);
-	gtk_range_set_value(GTK_RANGE(desktop_scale), 100.0);
+	gtk_range_set_value(GTK_RANGE(desktop_scale),
+		xfconf_channel_get_int(panel_channel, "/desktop-opacity", 100));
 	add_form_row(grid, COLUMN_C1, 3, desktop_label, desktop_scale, true, labels);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(desktop_label), desktop_scale);
 
-	connect(desktop_scale, "value-changed", [](GtkRange* range)
+	connect(desktop_scale, "value-changed", [panel_channel](GtkRange* range)
 	{
 		const gint opacity = static_cast<gint>(gtk_range_get_value(range));
+		xfconf_channel_set_int(panel_channel, "/desktop-opacity", opacity);
 		update_desktop_menu_css(TRUE, opacity);
 		set_desktop_icon_label_alpha(opacity / 100.0);
 	});
