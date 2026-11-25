@@ -154,8 +154,9 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 	gtk_box_pack_start(page, make_aligned_frame("Opacity", grid), false, false, 0);
 
 	GtkWidget* note = gtk_label_new(
-		"Only backgrounds are faded. Panel and menu icons, fonts and other "
-		"content stay fully opaque.");
+		"Opacity: 0% = fully transparent background, 100% = solid background. "
+		"Icons and text stay fully opaque. Click 'Restart panel to apply' after "
+		"changing the panel value.");
 	gtk_label_set_line_wrap(GTK_LABEL(note), TRUE);
 	gtk_widget_set_halign(note, GTK_ALIGN_START);
 	gtk_box_pack_start(page, note, false, false, 0);
