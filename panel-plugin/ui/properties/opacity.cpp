@@ -24,7 +24,7 @@ namespace
 
 gdouble get_panel_background_alpha(XfconfChannel* channel)
 {
-	gdouble r = 0.0, g = 0.0, b = 0.0, a = 1.0;
+	gdouble r = 0.101961, g = 0.372549, b = 0.705882, a = 1.0;
 	xfconf_channel_get_array(channel, "/panels/panel-1/background-rgba",
 		G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
 		G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &a, G_TYPE_INVALID);
@@ -33,7 +33,7 @@ gdouble get_panel_background_alpha(XfconfChannel* channel)
 
 void set_panel_background_alpha(XfconfChannel* channel, gdouble alpha)
 {
-	gdouble r = 0.0, g = 0.0, b = 0.0, a = 1.0;
+	gdouble r = 0.101961, g = 0.372549, b = 0.705882, a = 1.0;
 	xfconf_channel_get_array(channel, "/panels/panel-1/background-rgba",
 		G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
 		G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &a, G_TYPE_INVALID);
@@ -57,7 +57,8 @@ const gchar* const CSS_END = "/* OU Menu opacity end */";
 
 const gchar* const PANEL_CSS =
 	"/* OU Menu opacity start */\n"
-	".xfce4-panel, .xfce4-panel *, .panel, .panel *, "
+	"/* Do not style the panel window itself: its xfconf alpha is the opacity. */\n"
+	".xfce4-panel *, .panel *, "
 	".tasklist, .tasklist *, .group-button, .group-button *, "
 	"wnck-pager, wnck-pager:selected, wnck-pager:hover { "
 	"background-color: transparent; "
