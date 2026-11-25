@@ -177,11 +177,11 @@ Plugin::Plugin(XfcePanelPlugin* plugin) :
 
 	xfce_panel_plugin_menu_show_about(plugin);
 	// The default "Properties" entry is intentionally not shown; settings are
-	// reachable through the "OU Menu Setting" entry below and the desktop menu.
+	// reachable through the "OU Setting" entry below and the desktop menu.
 	xfce_panel_plugin_menu_insert_item(plugin, GTK_MENU_ITEM(m_settings->command[Settings::CommandMenuEditor]->get_menuitem()));
 
-	// Clickable "OU Menu Setting" entry in the panel plugin context menu.
-	GtkWidget* ou_settings_item = gtk_menu_item_new_with_label(_("OU Menu Setting"));
+	// Clickable "OU Setting" entry in the panel plugin context menu.
+	GtkWidget* ou_settings_item = gtk_menu_item_new_with_label(_("OU Setting"));
 	gtk_widget_show(ou_settings_item);
 	xfce_panel_plugin_menu_insert_item(plugin, GTK_MENU_ITEM(ou_settings_item));
 	connect(ou_settings_item, "activate",

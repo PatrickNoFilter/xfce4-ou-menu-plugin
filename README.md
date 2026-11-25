@@ -15,7 +15,7 @@ a Debian 13 based distribution in the Akar (Alpha) series. See the
 [OU Linux repository](https://github.com/PatrickNoFilter/ou-linux-akar) for the
 distribution, ISO details, and screenshots.
 
-![OU Menu Settings on OU Linux](assets/ou-menu-setting.png)
+![OU Settings on OU Linux](assets/ou-menu-setting.png)
 
 ## What is different here
 
@@ -32,9 +32,9 @@ distribution, ISO details, and screenshots.
   actions.
 
 ![Panel Preferences tab](assets/panel-preferences.png)
-- An **OU Menu Setting** entry in the desktop right-click menu, directly below
+- An **OU Setting** entry in the desktop right-click menu, directly below
   *Desktop Settings*.
-- A clickable **OU Menu Setting** entry and an **Applications** entry in the
+- A clickable **OU Setting** entry and an **Applications** entry in the
   panel icon's right-click menu; the default *Properties* entry is removed.
 - Panel-side remote event support used by `xfce4-popup-meowmenu --settings`.
 - An **Opacity** page: panel opacity fades only backgrounds — including the

@@ -108,7 +108,7 @@ int main(int argc, char** argv)
 	gint instance_number = 0;
 	const GOptionEntry entries[] =
 	{
-		{ "settings", 's', 0, G_OPTION_ARG_NONE, &show_settings, _("Open OU Menu settings"), nullptr },
+		{ "settings", 's', 0, G_OPTION_ARG_NONE, &show_settings, _("Open OU settings"), nullptr },
 		{ "pointer", 'p', 0, G_OPTION_ARG_NONE, &at_pointer, _("Popup menu at current mouse position"), nullptr },
 		{ "center", 'c', 0, G_OPTION_ARG_NONE, &at_center, _("Popup menu at center of screen"), nullptr },
 		{ "list", 'l', 0, G_OPTION_ARG_NONE, &list_instances, _("Print available menu instance IDs"), nullptr },
