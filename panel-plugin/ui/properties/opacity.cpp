@@ -105,6 +105,69 @@ void update_global_panel_css(gboolean transparent)
 	g_free(path);
 }
 
+const gchar* const MENU_CSS_START = "/* OU Menu desktop opacity start */";
+const gchar* const MENU_CSS_END = "/* OU Menu desktop opacity end */";
+
+/* Desktop right-click menus are GTK popups from xfdesktop, so their background
+ * alpha is controlled through the shared GTK3 CSS file as well. */
+void update_desktop_menu_css(gboolean enabled, gint opacity)
+{
+	gchar* dir = g_build_filename(g_get_user_config_dir(), "gtk-3.0", nullptr);
+	g_mkdir_with_parents(dir, 0700);
+	gchar* path = g_build_filename(dir, "gtk.css", nullptr);
+	g_free(dir);
+
+	gchar* contents = nullptr;
+	g_file_get_contents(path, &contents, nullptr, nullptr);
+	GString* out = g_string_new(contents ? contents : "");
+	g_free(contents);
+
+	gchar* begin = g_strstr_len(out->str, out->len, MENU_CSS_START);
+	if (begin)
+	{
+		gchar* end = g_strstr_len(begin, out->len - (begin - out->str), MENU_CSS_END);
+		if (end)
+		{
+			end += strlen(MENU_CSS_END);
+			while (*end == '\n' || *end == '\r')
+				++end;
+			g_string_erase(out, begin - out->str, end - begin);
+		}
+	}
+
+	if (enabled)
+	{
+		gchar alpha[16];
+		g_snprintf(alpha, sizeof(alpha), "%d.%02d", opacity / 100, opacity % 100);
+		gchar* rule = g_strdup_printf(
+			"%s\nmenu, .menu, GtkMenu, .xfce4-panel menu { "
+			"background-color: rgba(0, 0, 0, %s); }\n%s\n",
+			MENU_CSS_START, alpha, MENU_CSS_END);
+		if (out->len && out->str[out->len - 1] != '\n')
+			g_string_append_c(out, '\n');
+		g_string_append(out, rule);
+		g_free(rule);
+	}
+
+	g_file_set_contents(path, out->str, out->len, nullptr);
+	g_string_free(out, TRUE);
+	g_free(path);
+}
+
+void set_night_mode(gboolean enabled)
+{
+	const gchar* theme = enabled ? "Adwaita-dark" : "Adwaita";
+	gchar* command = g_strdup_printf(
+		"gsettings set org.gnome.desktop.interface gtk-theme %s", theme);
+	g_spawn_command_line_async(command, nullptr);
+	g_free(command);
+
+	command = g_strdup_printf(
+		"xfconf-query -c xsettings -p /Net/ThemeName -s %s --create", theme);
+	g_spawn_command_line_async(command, nullptr);
+	g_free(command);
+}
+
 } // namespace
 
 /* init_opacity_tab:
@@ -149,6 +212,34 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 		m_settings->menu_opacity = static_cast<int>(gtk_range_get_value(range));
 		m_settings->dispatch_property_change("/menu-opacity");
 		refresh_customized_indicator();
+	});
+
+	/* Night mode and desktop right-click menu opacity. */
+	GtkWidget* night = gtk_check_button_new_with_mnemonic(
+		"_Night mode (required for desktop menu opacity)");
+	add_form_row(grid, COLUMN_C1, 2, nullptr, night, false, nullptr);
+
+	GtkWidget* desktop_label = gtk_label_new_with_mnemonic("_Desktop menu opacity:");
+	GtkWidget* desktop_scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
+	gtk_scale_set_value_pos(GTK_SCALE(desktop_scale), GTK_POS_RIGHT);
+	gtk_range_set_value(GTK_RANGE(desktop_scale), 100.0);
+	gtk_widget_set_sensitive(desktop_scale, FALSE);
+	add_form_row(grid, COLUMN_C1, 3, desktop_label, desktop_scale, true, labels);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(desktop_label), desktop_scale);
+
+	connect(night, "toggled", [desktop_scale](GtkToggleButton* button)
+	{
+		const gboolean active = gtk_toggle_button_get_active(button);
+		set_night_mode(active);
+		gtk_widget_set_sensitive(desktop_scale, active);
+		update_desktop_menu_css(active,
+			static_cast<gint>(gtk_range_get_value(GTK_RANGE(desktop_scale))));
+	});
+
+	connect(desktop_scale, "value-changed", [night](GtkRange* range)
+	{
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(night)))
+			update_desktop_menu_css(TRUE, static_cast<gint>(gtk_range_get_value(range)));
 	});
 
 	gtk_box_pack_start(page, make_aligned_frame("Opacity", grid), false, false, 0);
