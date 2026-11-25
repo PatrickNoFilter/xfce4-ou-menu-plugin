@@ -153,40 +153,8 @@ GtkWidget* build_display_tab(XfconfChannel* channel, const gchar* prefix)
 GtkWidget* build_appearance_tab(XfconfChannel* channel, const gchar* prefix)
 {
 	GtkWidget* grid = make_two_column_section();
-	const gchar* const styles[] = { "None", "Color", "Image", nullptr };
-
-	gchar* key = panel_property(prefix, "background-style");
-	add_combo(grid, 0, "_Style:", channel, key, 0, styles);
-
-	key = panel_property(prefix, "background-rgba");
-	gdouble r = 0.0, g = 0.0, b = 0.0, a = 1.0;
-	xfconf_channel_get_array(channel, key,
-		G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
-		G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &a, G_TYPE_INVALID);
-	GdkRGBA rgba = { r, g, b, a };
-	GtkWidget* color = gtk_color_button_new_with_rgba(&rgba);
-	connect(color, "color-set", [channel, key](GtkColorButton* button)
-	{
-		GdkRGBA value;
-		gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(button), &value);
-		xfconf_channel_set_array(channel, key,
-			G_TYPE_DOUBLE, value.red, G_TYPE_DOUBLE, value.green,
-			G_TYPE_DOUBLE, value.blue, G_TYPE_DOUBLE, value.alpha, G_TYPE_INVALID);
-	});
-	add_form_row(grid, COLUMN_C1, 1, gtk_label_new_with_mnemonic("Background _color:"), color, true, nullptr);
-
-	key = panel_property(prefix, "enter-opacity");
-	add_spin(grid, 2, "_Enter opacity:", channel, key, 0, 100, 100);
-
-	key = panel_property(prefix, "leave-opacity");
-	add_spin(grid, 3, "_Leave opacity:", channel, key, 0, 100, 100);
-
-	key = panel_property(prefix, "icon-size");
-	add_spin(grid, 4, "_Icon size:", channel, key, 0, 128, 48);
-
-	key = panel_property(prefix, "dark-mode");
-	add_check(grid, 5, "_Dark mode", channel, key, FALSE);
-
+	gchar* key = panel_property(prefix, "icon-size");
+	add_spin(grid, 0, "_Icon size:", channel, key, 0, 128, 48);
 	return wrap_in_scrolled(grid);
 }
 

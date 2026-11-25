@@ -35,31 +35,6 @@ using namespace WhiskerMenu;
 
 //-----------------------------------------------------------------------------
 
-/* set_menu_opacity_compositing_state:
- * @scale: the Menu-opacity scale.
- * @label: its mnemonic label.
- *
- * Reflects whether the control's screen is composited. Opacity has no visible
- * effect without a compositor (the renderer paints fully solid in that case), so
- * the control is made insensitive with a tooltip explaining why; with a
- * compositor present it is sensitive and carries no tooltip. Called once when the
- * tab builds and again from the screen's composited-changed signal.
- */
-static void set_menu_opacity_compositing_state(GtkWidget* scale, GtkWidget* label)
-{
-	GdkScreen* screen = gtk_widget_get_screen(scale);
-	const gboolean composited = screen && gdk_screen_is_composited(screen);
-	gtk_widget_set_sensitive(scale, composited);
-	gtk_widget_set_sensitive(label, composited);
-	const gchar* tip = composited
-		? nullptr
-		: _("Opacity requires a running compositor; without one the menu is always solid.");
-	gtk_widget_set_tooltip_text(scale, tip);
-	gtk_widget_set_tooltip_text(label, tip);
-}
-
-//-----------------------------------------------------------------------------
-
 /* init_general_tab:
  *
  * Builds the General tab. Each of the three section frames lays its controls
@@ -783,41 +758,8 @@ GtkWidget* SettingsDialog::init_general_tab()
 			refresh_customized_indicator();
 		});
 
-	// Row 3 C1: Menu opacity (wide-fill). One control fades the whole menu
-	// background uniformly in every layout mode, so it is sensitive in all modes
-	// (no LayoutControl registration); compositing availability gates it instead.
-	GtkWidget* mo_label = gtk_label_new_with_mnemonic(_("_Menu opacity:"));
-	m_menu_opacity = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
-	gtk_scale_set_value_pos(GTK_SCALE(m_menu_opacity), GTK_POS_RIGHT);
-	gtk_range_set_value(GTK_RANGE(m_menu_opacity), m_settings->menu_opacity);
-	add_form_row(menu_grid, COLUMN_C1, 3, mo_label, m_menu_opacity, true, menu_c1_labels);
-	gtk_label_set_mnemonic_widget(GTK_LABEL(mo_label), m_menu_opacity);
 	g_object_unref(menu_c1_labels);
 	g_object_unref(menu_c2_labels);
-
-	connect(m_menu_opacity, "value-changed",
-		[this](GtkRange* range)
-		{
-			if (m_programmatic_update)
-				return;
-			m_settings->menu_opacity = static_cast<int>(gtk_range_get_value(range));
-			m_settings->dispatch_property_change("/menu-opacity");
-			refresh_customized_indicator();
-		});
-
-	// HACK: without a compositor the window guards render the menu solid. Keep
-	// the control disabled in that fallback, but follow compositor changes live.
-	// X11 is the verified path; rendering remains safe on other backends.
-	set_menu_opacity_compositing_state(m_menu_opacity, mo_label);
-	if (GdkScreen* mo_screen = gtk_widget_get_screen(m_menu_opacity))
-	{
-		m_composited_screen = mo_screen;
-		m_composited_changed_slot = connect(mo_screen, "composited-changed",
-			[this, mo_label](GdkScreen*)
-			{
-				set_menu_opacity_compositing_state(m_menu_opacity, mo_label);
-			});
-	}
 
 	// Row 3 C2: Stay visible when focus is lost (control-only).
 	m_stay_on_focus_out = gtk_check_button_new_with_mnemonic(_("Stay _visible when focus is lost"));

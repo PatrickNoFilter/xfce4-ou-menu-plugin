@@ -16,6 +16,7 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
 #include <xfconf/xfconf.h>
+#include <gio/gio.h>
 
 using namespace WhiskerMenu;
 
@@ -214,32 +215,47 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 		refresh_customized_indicator();
 	});
 
-	/* Night mode and desktop right-click menu opacity. */
-	GtkWidget* night = gtk_check_button_new_with_mnemonic(
-		"_Night mode (required for desktop menu opacity)");
-	add_form_row(grid, COLUMN_C1, 2, nullptr, night, false, nullptr);
+	/* System-wide Day / Night mode choice. */
+	GSettings* settings = g_settings_new("org.gnome.desktop.interface");
+	gchar* theme = g_settings_get_string(settings, "gtk-theme");
+	const gboolean dark = theme && g_strstr_len(theme, -1, "dark");
+	g_free(theme);
+	g_object_unref(settings);
 
+	GtkWidget* day = gtk_radio_button_new_with_mnemonic(nullptr, "_Day mode");
+	GtkWidget* night = gtk_radio_button_new_with_mnemonic_from_widget(
+		GTK_RADIO_BUTTON(day), "_Night mode");
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dark ? night : day), TRUE);
+
+	GtkWidget* mode_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
+	gtk_box_pack_start(GTK_BOX(mode_box), day, false, false, 0);
+	gtk_box_pack_start(GTK_BOX(mode_box), night, false, false, 0);
+	GtkWidget* mode_label = gtk_label_new_with_mnemonic("_Color mode:");
+	add_form_row(grid, COLUMN_C1, 2, mode_label, mode_box, true, labels);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(mode_label), day);
+
+	connect(day, "toggled", [](GtkToggleButton* button)
+	{
+		if (gtk_toggle_button_get_active(button))
+			set_night_mode(FALSE);
+	});
+	connect(night, "toggled", [](GtkToggleButton* button)
+	{
+		if (gtk_toggle_button_get_active(button))
+			set_night_mode(TRUE);
+	});
+
+	/* Desktop right-click menu opacity is always available. */
 	GtkWidget* desktop_label = gtk_label_new_with_mnemonic("_Desktop menu opacity:");
 	GtkWidget* desktop_scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
 	gtk_scale_set_value_pos(GTK_SCALE(desktop_scale), GTK_POS_RIGHT);
 	gtk_range_set_value(GTK_RANGE(desktop_scale), 100.0);
-	gtk_widget_set_sensitive(desktop_scale, FALSE);
 	add_form_row(grid, COLUMN_C1, 3, desktop_label, desktop_scale, true, labels);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(desktop_label), desktop_scale);
 
-	connect(night, "toggled", [desktop_scale](GtkToggleButton* button)
+	connect(desktop_scale, "value-changed", [](GtkRange* range)
 	{
-		const gboolean active = gtk_toggle_button_get_active(button);
-		set_night_mode(active);
-		gtk_widget_set_sensitive(desktop_scale, active);
-		update_desktop_menu_css(active,
-			static_cast<gint>(gtk_range_get_value(GTK_RANGE(desktop_scale))));
-	});
-
-	connect(desktop_scale, "value-changed", [night](GtkRange* range)
-	{
-		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(night)))
-			update_desktop_menu_css(TRUE, static_cast<gint>(gtk_range_get_value(range)));
+		update_desktop_menu_css(TRUE, static_cast<gint>(gtk_range_get_value(range)));
 	});
 
 	gtk_box_pack_start(page, make_aligned_frame("Opacity", grid), false, false, 0);
