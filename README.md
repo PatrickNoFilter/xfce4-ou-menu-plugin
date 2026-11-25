@@ -41,6 +41,8 @@ distribution, ISO details, and screenshots.
   tasklist buttons and workspace switcher — while panel icons and fonts stay
   fully opaque. Menu opacity fades only the menu background. A "Restart panel
   to apply" button reloads the panel widgets after a change.
+- A **Night mode** switch (Adwaita-dark) that enables **Desktop menu opacity**
+  for the desktop right-click menu.
 
 ![Opacity settings](assets/opacity.png)
 
