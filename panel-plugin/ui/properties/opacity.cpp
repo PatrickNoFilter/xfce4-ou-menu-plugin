@@ -310,15 +310,19 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 	GtkWidget* tip = gtk_label_new(
 		"Night mode works best if you use opacity adjustment.");
 	gtk_label_set_line_wrap(GTK_LABEL(tip), TRUE);
+	gtk_label_set_xalign(GTK_LABEL(tip), 0.0);
 	gtk_widget_set_halign(tip, GTK_ALIGN_START);
+	gtk_widget_set_margin_start(tip, 0);
 	gtk_box_pack_start(page, tip, false, false, 0);
 
 	GtkWidget* note = gtk_label_new(
 		"Opacity: 0% = fully transparent background, 100% = solid background. "
-		"Icons and text stay fully opaque. Click 'Restart panel to apply' after "
-		"changing the panel value.");
+		"Icons and text stay fully opaque. Click 'Restart panel to apply' for "
+		"panel changes or 'Restart desktop to apply' for desktop changes.");
 	gtk_label_set_line_wrap(GTK_LABEL(note), TRUE);
+	gtk_label_set_xalign(GTK_LABEL(note), 0.0);
 	gtk_widget_set_halign(note, GTK_ALIGN_START);
+	gtk_widget_set_margin_start(note, 0);
 	gtk_box_pack_start(page, note, false, false, 0);
 
 	GtkWidget* restart = gtk_button_new_with_label("Restart panel to apply");
