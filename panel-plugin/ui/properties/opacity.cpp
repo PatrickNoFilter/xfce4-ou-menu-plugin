@@ -23,31 +23,57 @@ using namespace WhiskerMenu;
 namespace
 {
 
+/* Find the panel that actually owns background-rgba instead of assuming
+ * panel-1; multi-panel and OEM configurations use different indices. */
+static gchar* panel_property(const gchar* suffix)
+{
+	XfconfChannel* channel = xfconf_channel_get("xfce4-panel");
+	for (gint i = 0; i < 16; ++i)
+	{
+		gchar* candidate = g_strdup_printf("/panels/panel-%d%s", i, suffix);
+		if (xfconf_channel_has_property(channel, candidate))
+		{
+			return candidate;
+		}
+		g_free(candidate);
+	}
+	return g_strconcat("/panels/panel-1", suffix, nullptr);
+}
+
 gdouble get_panel_background_alpha(XfconfChannel* channel)
 {
 	gdouble r = 0.101961, g = 0.372549, b = 0.705882, a = 1.0;
-	xfconf_channel_get_array(channel, "/panels/panel-1/background-rgba",
+	gchar* path = panel_property("/background-rgba");
+	xfconf_channel_get_array(channel, path,
 		G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
 		G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &a, G_TYPE_INVALID);
+	g_free(path);
 	return a;
 }
 
 void set_panel_background_alpha(XfconfChannel* channel, gdouble alpha)
 {
 	gdouble r = 0.101961, g = 0.372549, b = 0.705882, a = 1.0;
-	xfconf_channel_get_array(channel, "/panels/panel-1/background-rgba",
+	gchar* rgba = panel_property("/background-rgba");
+	xfconf_channel_get_array(channel, rgba,
 		G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
 		G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &a, G_TYPE_INVALID);
-
-	xfconf_channel_set_array(channel, "/panels/panel-1/background-rgba",
+	xfconf_channel_set_array(channel, rgba,
 		G_TYPE_DOUBLE, &r, G_TYPE_DOUBLE, &g,
 		G_TYPE_DOUBLE, &b, G_TYPE_DOUBLE, &alpha, G_TYPE_INVALID);
+	g_free(rgba);
 
 	/* Background colour mode is required for the alpha to be used. */
-	xfconf_channel_set_int(channel, "/panels/panel-1/background-style", 1);
+	gchar* path = panel_property("/background-style");
+	xfconf_channel_set_int(channel, path, 1);
+	g_free(path);
 	/* Whole-window opacity would fade icons and text; keep it at full. */
-	xfconf_channel_set_int(channel, "/panels/panel-1/enter-opacity", 100);
-	xfconf_channel_set_int(channel, "/panels/panel-1/leave-opacity", 100);
+	path = panel_property("/enter-opacity");
+	xfconf_channel_set_int(channel, path, 100);
+	g_free(path);
+	path = panel_property("/leave-opacity");
+	xfconf_channel_set_int(channel, path, 100);
+	g_free(path);
 }
 
 /* Tasklist and pager run in separate panel wrapper processes, so a CSS provider
@@ -330,16 +356,20 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 	GtkWidget* restart = gtk_button_new_with_label("Restart panel to apply");
 	connect(restart, "clicked", [](GtkButton*)
 	{
-		g_spawn_command_line_async("xfce4-panel -r", nullptr);
+		/* A small xfconf nudge is enough for XFCE to repaint the panel;
+		 * xfce4-panel -r can fail over D-Bus early in a session. */
+		XfconfChannel* channel = xfconf_channel_get("xfce4-panel");
+		const gdouble alpha = get_panel_background_alpha(channel);
+		set_panel_background_alpha(channel, alpha > 0.98 ? alpha - 0.01 : alpha + 0.01);
+		set_panel_background_alpha(channel, alpha);
 	});
 	gtk_box_pack_start(page, restart, false, false, 0);
 
 	GtkWidget* restart_desktop = gtk_button_new_with_label("Restart desktop to apply");
 	connect(restart_desktop, "clicked", [](GtkButton*)
 	{
-		gchar* command = g_strdup_printf(
-			"sh -c 'pkill -x xfdesktop; sleep 1; %s/.local/bin/xfdesktop >/dev/null 2>&1 &'",
-			g_get_home_dir());
+		gchar* command = g_strdup(
+			"sh -c 'pkill -x xfdesktop; sleep 1; /usr/bin/xfdesktop >/dev/null 2>&1 &'");
 		g_spawn_command_line_async(command, nullptr);
 		g_free(command);
 	});
@@ -347,4 +377,28 @@ GtkWidget* SettingsDialog::init_opacity_tab()
 
 	g_object_unref(labels);
 	return wrap_in_scrolled(GTK_WIDGET(page));
+}
+
+void SettingsDialog::apply_initial_opacity()
+{
+	if (!xfconf_init(nullptr))
+	{
+		return;
+	}
+
+	XfconfChannel* panel = xfconf_channel_get("xfce4-panel");
+	const gdouble alpha = get_panel_background_alpha(panel);
+	if (alpha < 0.995)
+	{
+		update_global_panel_css(true);
+		set_panel_background_alpha(panel, alpha > 0.98 ? alpha - 0.01 : alpha + 0.01);
+		set_panel_background_alpha(panel, alpha);
+	}
+
+	const gint desktop = xfconf_channel_get_int(panel, "/desktop-opacity", 100);
+	if (desktop < 100)
+	{
+		update_desktop_menu_css(true, desktop);
+		set_desktop_icon_label_alpha(desktop / 100.0);
+	}
 }

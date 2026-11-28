@@ -6,13 +6,13 @@
 %global plugin_name xfce4-meowmenu-plugin
 
 Name:           %{plugin_name}
-Version:        1.0.0~rc3
+Version:        1.0.0~rc4
 Release:        1%{?dist}
 Summary:        OU Linux menu launcher plugin for the Xfce panel
 
 License:        GPLv2+
 URL:            https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin
-%global upstream_version 1.0.0-rc3
+%global upstream_version 1.0.0-rc4
 Source0:        %{name}-%{upstream_version}.tar.gz
 
 Packager:       PatrickNoFilter <PatrickNoFilter@users.noreply.github.com>
@@ -78,5 +78,5 @@ with OU branding and an OU Setting Wallpaper page.
 %{_mandir}/man1/xfce4-popup-meowmenu.1*
 
 %changelog
-* Sat Nov 28 2026 PatrickNoFilter <PatrickNoFilter@users.noreply.github.com> - 1.0.0~rc3-1
+* Sat Nov 28 2026 PatrickNoFilter <PatrickNoFilter@users.noreply.github.com> - 1.0.0~rc4-1
 - OU Menu branding and OU Setting Wallpaper page with custom image picker.

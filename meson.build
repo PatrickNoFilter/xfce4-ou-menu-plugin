@@ -203,6 +203,20 @@ install_data(
   install_dir: pkgdatadir,
 )
 
+# The Wallpaper page calls a root helper through pkexec. Keep it beside the
+# plugin so packaged installs get the same feature as a source install.
+install_data(
+  'dev/ou-wallpaper-helper',
+  install_dir: get_option('prefix') / 'libexec',
+  install_mode: 'rwxr-xr-x',
+)
+install_data(
+  'dev/ou-wallpaper-polkit.txt',
+  rename: '49-ou-wallpaper.rules',
+  install_dir: get_option('prefix') / 'share' / 'polkit-1' / 'rules.d',
+  install_mode: 'rw-r--r--',
+)
+
 # Generate and install localized AppStream metadata from the main catalog.
 i18n.merge_file(
   input: 'data' / 'metainfo' / 'io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml',

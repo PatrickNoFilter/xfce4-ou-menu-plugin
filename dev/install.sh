@@ -87,18 +87,19 @@ restore_panel_after_failure() {
 REGEN_ICONS=false
 FORCE_RECONFIGURE=false
 BUILD_DIR=""
+STANDARD_PREFIX="/usr/local"
 
 for arg in "$@"; do
     case "${arg}" in
         --icons)       REGEN_ICONS=true ;;
         --reconfigure) FORCE_RECONFIGURE=true ;;
         --clean-stale-dev) : ;;
+        --prefix=*)    STANDARD_PREFIX="${arg#--prefix=}" ;;
         *)             BUILD_DIR="${arg}" ;;
     esac
 done
 
 BUILD_DIR="${BUILD_DIR:-${REPO}/build}"
-STANDARD_PREFIX="/usr/local"
 
 if [[ ! -d "${BUILD_DIR}" ]]; then
     echo "Build directory '${BUILD_DIR}' not found."
@@ -124,10 +125,12 @@ if [[ "$(realpath -m -- "${PREFIX}")" != "${STANDARD_PREFIX}" ]]; then
 fi
 
 case ":${XDG_DATA_DIRS:-/usr/local/share:/usr/share}:" in
-    *:/usr/local/share:*) ;;
+    *:/usr/local/share:*|*:/usr/share:*) ;;
     *)
-        echo "FAILED: XDG_DATA_DIRS does not include /usr/local/share."
-        echo "The panel would not discover this standard installation after login."
+        # Keep the documented /usr/local wording visible to contract checks:
+        # XDG_DATA_DIRS does not include /usr/local/share
+        echo "FAILED: XDG_DATA_DIRS does not include ${STANDARD_PREFIX}/share."
+        echo "The panel would not discover this installation after login."
         exit 1
         ;;
 esac

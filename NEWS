@@ -1,5 +1,10 @@
-1.0.0-rc3 (2026-11-28)
+1.0.0-rc4 (2026-11-28)
 =====
+- Installer: ship the Wallpaper root helper and polkit rule with Meson packages
+- Opacity: apply stored panel and desktop opacity at session start without a slider change
+- Opacity: find the active panel dynamically; avoid the D-Bus panel restart dialog
+- Image builds: allow an explicit --prefix=/usr in dev/install.sh
+- Documentation: restore README cross-links and release information
 - OU Setting: add Wallpaper page for desktop and login backgrounds, with a file picker for custom images
 
 1.0.0-rc2 (2026-11-20)

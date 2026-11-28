@@ -54,6 +54,12 @@ public:
 
 	void close();
 
+	/* Re-apply stored panel/desktop opacity once a session has started.
+	 * XFCE reads background-rgba at panel startup and GTK reads the user CSS
+	 * at process start; writing the current values back makes both effective
+	 * without touching a slider or restarting the panel over D-Bus. */
+	static void apply_initial_opacity();
+
 	/* create_form_switch:
 	 * @role: Settings control that will own the returned widget.
 	 *

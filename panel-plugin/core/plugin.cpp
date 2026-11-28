@@ -73,6 +73,9 @@ Plugin::Plugin(XfcePanelPlugin* plugin) :
 	// Load user settings
 	m_settings->load(xfce_panel_plugin_get_property_base(m_plugin));
 
+	// Make the saved opacity effective without requiring a slider change.
+	SettingsDialog::apply_initial_opacity();
+
 	m_opacity = m_settings->menu_opacity;
 
 	// Switch to new icon only if theme is missing old icon

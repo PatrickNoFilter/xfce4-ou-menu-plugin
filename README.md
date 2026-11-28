@@ -65,7 +65,28 @@ meson compile -C build
 meson install -C build
 ```
 
-After installation, restart the panel with `xfce4-panel -r`.
+The default Meson prefix is `/usr/local`. Image builders that install into the
+conventional panel paths can configure with `meson setup build --prefix=/usr`,
+or use `dev/install.sh --prefix=/usr`; the Wallpaper helper and its polkit rule
+are installed in both cases. After installation, restart the panel with
+`xfce4-panel -r`.
+
+## Documentation
+
+- [Keyboard navigation](docs/keyboard-navigation.md)
+- [Support and compatibility](docs/support.md)
+- [Known limitations](docs/known-limitations.md)
+- [Testing checklist](docs/testing.md)
+- [Translation status](docs/translations.md)
+
+Both X11 and Wayland sessions are covered by the documentation.
+
+## Downloads
+
+Releases provide native packages for Ubuntu, Debian and Fedora, plus a source archive with `SHA256SUMS`.
+Arch packages are published to the AUR and are not attached to GitHub releases.
+
+MeowMenu was developed with AI assistance; every change is maintainer-reviewed.
 
 ## Credits
 
