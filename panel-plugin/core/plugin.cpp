@@ -79,7 +79,7 @@ Plugin::Plugin(XfcePanelPlugin* plugin) :
 	if ((m_settings->button_icon_name == "xfce4-whiskermenu")
 			&& !gtk_icon_theme_has_icon(gtk_icon_theme_get_default(), "xfce4-whiskermenu"))
 	{
-		m_settings->button_icon_name = "org.xfce.panel.meowmenu";
+		m_settings->button_icon_name = "ou-menu";
 	}
 
 	// Create toggle button
@@ -573,7 +573,7 @@ static void show_news_dialog(GtkWindow* parent)
 
 /* Plugin::show_about:
  *
- * Shows the MeowMenu About dialog. Adds a "What's New" button that opens
+ * Shows the OU Menu About dialog. Adds a "What's New" button that opens
  * the NEWS file in a separate scrollable dialog without closing the About
  * dialog. Credits section acknowledges the original Whisker Menu project.
  */
@@ -583,7 +583,8 @@ void Plugin::show_about()
 	static const gint RESPONSE_NEWS = 1;
 
 	const gchar* authors[] = {
-		"Matteo Bonanomi",
+		"Matteo Bonanomi (original MeowMenu)",
+		"PatrickNoFilter (OU Linux fork)",
 		nullptr };
 
 	const gchar* whisker_credits[] = {
@@ -595,14 +596,14 @@ void Plugin::show_about()
 	GtkWidget* dialog = gtk_about_dialog_new();
 	GtkAboutDialog* about = GTK_ABOUT_DIALOG(dialog);
 
-	gtk_about_dialog_set_program_name(about, "MeowMenu");
+	gtk_about_dialog_set_program_name(about, "OU Menu");
 	gtk_about_dialog_set_version(about, MEOWMENU_VERSION " (" MEOWMENU_RELEASE_DATE ")");
-	gtk_about_dialog_set_comments(about, _("Alternate launcher for XFCE4"));
+	gtk_about_dialog_set_comments(about, _("OU Linux application launcher for XFCE"));
 	gtk_about_dialog_set_website(about, PLUGIN_WEBSITE);
-	gtk_about_dialog_set_copyright(about, "Copyright \302\251 2026 Matteo Bonanomi");
+	gtk_about_dialog_set_copyright(about, "Copyright \302\251 2026 Matteo Bonanomi; OU Linux fork \302\251 2026 PatrickNoFilter");
 	gtk_about_dialog_set_license_type(about, GTK_LICENSE_GPL_2_0);
 	gtk_about_dialog_set_authors(about, authors);
-	gtk_about_dialog_set_logo_icon_name(about, "org.xfce.panel.meowmenu");
+	gtk_about_dialog_set_logo_icon_name(about, "ou-menu");
 	gtk_about_dialog_add_credit_section(about, _("Based on Whisker Menu"), whisker_credits);
 
 	const gchar* translated_credits = _("translator-credits");

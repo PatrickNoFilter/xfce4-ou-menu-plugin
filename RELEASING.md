@@ -64,7 +64,7 @@ regular 0.x.x releases provide the latest features and improvements. GitHub's
    python3 build-aux/localization-audit.py
    for catalog in po/*.po; do msgfmt --check --check-format -o /dev/null "$catalog"; done
    appstreamcli validate --no-net \
-     data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml
+     data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml
    ```
 
    Use the manual localization checklist in

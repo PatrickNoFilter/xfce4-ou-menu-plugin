@@ -140,7 +140,7 @@ remove_dev_payload_under_root() {
         -o -path '*/xfce4/panel/plugins/meowmenu.desktop' \
         -o -path '*/bin/xfce4-popup-meowmenu' \
         -o -path '*/share/man/man1/xfce4-popup-meowmenu.1' \
-        -o -path '*/share/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml' \
+        -o -path '*/share/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml' \
         -o -path '*/share/metainfo/xfce4-meowmenu-plugin.appdata.xml' \
         -o -path '*/share/icons/hicolor/*/apps/org.xfce.panel.meowmenu.png' \
         -o -path '*/share/icons/hicolor/scalable/apps/org.xfce.panel.meowmenu.svg' \

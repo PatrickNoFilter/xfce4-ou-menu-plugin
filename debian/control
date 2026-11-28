@@ -1,7 +1,7 @@
 Source: xfce4-meowmenu-plugin
 Section: xfce
 Priority: optional
-Maintainer: Matteo Bonanomi <mbonanomi.dev@proton.me>
+Maintainer: PatrickNoFilter <PatrickNoFilter@users.noreply.github.com>
 Build-Depends:
  debhelper-compat (= 13),
  meson,
@@ -20,9 +20,9 @@ Build-Depends:
  git,
  gettext
 Standards-Version: 4.6.2
-Homepage: https://github.com/matteobonanomi/xfce4-meowmenu-plugin
-Vcs-Browser: https://github.com/matteobonanomi/xfce4-meowmenu-plugin
-Vcs-Git: https://github.com/matteobonanomi/xfce4-meowmenu-plugin.git
+Homepage: https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin
+Vcs-Browser: https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin
+Vcs-Git: https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin.git
 Rules-Requires-Root: no
 
 Package: xfce4-meowmenu-plugin
@@ -34,8 +34,8 @@ Depends:
  xfce4-panel
 Recommends:
  bc
-Description: modern menu launcher plugin for the Xfce panel
- MeowMenu is a panel-plugin launcher for the Xfce desktop. It is a
- standalone project that originated as a fork of Xfce's Whisker Menu
+Description: OU Linux menu launcher plugin for the Xfce panel
+ OU Menu is a panel-plugin launcher for the Xfce desktop. It is an
+ OU Linux fork of MeowMenu, which originated as a fork of Xfce's Whisker Menu
  and keeps the familiar panel-launcher feel while bringing a cleaner
  modern look and a more capable search bar.

@@ -10,7 +10,7 @@ nav_order: 5
 
 Release candidates are the more stable choice. Regular 0.x.x releases are for
 users who want the latest features and improvements. Both are published on the
-[GitHub Releases page](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/releases).
+[GitHub Releases page](https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/releases).
 
 ## Packages
 
@@ -52,4 +52,4 @@ It does not replace testing in a running Xfce desktop.
 
 See [Known limitations](known-limitations) for current caveats. If you try
 MeowMenu on another setup, you can share the result with a
-[compatibility report](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/issues/new?template=compatibility-report.yml).
+[compatibility report](https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/issues/new?template=compatibility-report.yml).

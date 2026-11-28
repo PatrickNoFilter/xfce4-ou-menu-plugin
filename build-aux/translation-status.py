@@ -45,7 +45,7 @@ fallback when a translated value is absent or has not been accepted.
 
 To improve a language, edit `po/<locale>.po`, run
 `msgfmt --check --check-format -o /dev/null po/<locale>.po`, and
-[open a pull request](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/pulls).
+[open a pull request](https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/pulls).
 """
 
 

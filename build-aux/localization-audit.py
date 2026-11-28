@@ -60,7 +60,7 @@ KNOWN_MESSAGE_SOURCES = (
     "panel-plugin/presets/preset-builtins.cpp",
     "panel-plugin/presets/preset-io.cpp",
     "panel-plugin/meowmenu.desktop.in",
-    "data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml",
+    "data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml",
 )
 
 def _run(command, cwd=None, check=True):

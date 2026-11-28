@@ -18,7 +18,7 @@
 #ifndef WHISKERMENU_PLUGIN_H
 #define WHISKERMENU_PLUGIN_H
 
-#define PLUGIN_WEBSITE "https://github.com/matteobonanomi/xfce4-meowmenu-plugin"
+#define PLUGIN_WEBSITE "https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin"
 
 #include <string>
 

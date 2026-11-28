@@ -200,7 +200,7 @@ jobs:
           python3 tests/test_repository_presentation.py
           python3 tests/test_translation_status.py
           appstreamcli validate --no-net \
-            data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml
+            data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml
 
       - name: Report advisory package-to-documentation drift
         shell: bash

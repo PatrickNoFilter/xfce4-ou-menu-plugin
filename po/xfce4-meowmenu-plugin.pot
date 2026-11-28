@@ -1244,15 +1244,15 @@ msgstr ""
 msgid "Show a menu to easily access installed applications"
 msgstr ""
 
-#: data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml:5
+#: data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml:5
 msgid "MeowMenu"
 msgstr ""
 
-#: data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml:6
+#: data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml:6
 msgid "Modern menu launcher plugin for the Xfce panel"
 msgstr ""
 
-#: data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml:12
+#: data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml:12
 msgid ""
 "MeowMenu is a panel-plugin launcher for the Xfce desktop. It is a standalone "
 "project that originated as a fork of Xfce's Whisker Menu and keeps the "

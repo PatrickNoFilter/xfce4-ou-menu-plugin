@@ -109,18 +109,18 @@ class RepositoryPresentationTest(unittest.TestCase):
         meson = (ROOT / "meson.build").read_text(encoding="utf-8")
         self.assertIn(
             'PACKAGE_BUGREPORT="https://github.com/'
-            'matteobonanomi/xfce4-meowmenu-plugin/issues"',
+            'PatrickNoFilter/xfce4-ou-menu-plugin/issues"',
             meson,
         )
 
     def test_appstream_identity_is_repository_owned(self):
         metainfo = ROOT / (
             "data/metainfo/"
-            "io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml"
+            "io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml"
         )
         self.assertTrue(metainfo.is_file())
         self.assertIn(
-            "<id>io.github.matteobonanomi.xfce4-meowmenu-plugin</id>",
+            "<id>io.github.PatrickNoFilter.xfce4-ou-menu-plugin</id>",
             metainfo.read_text(encoding="utf-8"),
         )
 
@@ -135,10 +135,10 @@ class RepositoryPresentationTest(unittest.TestCase):
     def test_appstream_developer_name_is_not_localized(self):
         metainfo = ROOT / (
             "data/metainfo/"
-            "io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml"
+            "io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml"
         )
         self.assertIn(
-            '<name translate="no">Matteo Bonanomi</name>',
+            '<name translate="no">PatrickNoFilter</name>',
             metainfo.read_text(encoding="utf-8"),
         )
 
@@ -147,7 +147,7 @@ class RepositoryPresentationTest(unittest.TestCase):
         self.assertIn("panel-plugin/presets/preset-builtins.cpp", potfiles)
         self.assertIn("panel-plugin/presets/preset-io.cpp", potfiles)
         self.assertIn(
-            "data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml",
+            "data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml",
             potfiles,
         )
         for message_free in (
@@ -173,7 +173,7 @@ class RepositoryPresentationTest(unittest.TestCase):
     def test_appstream_locale_merge_and_fallback_artifacts(self):
         metainfo = ROOT / (
             "data/metainfo/"
-            "io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml"
+            "io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml"
         )
         pot = (ROOT / "po/xfce4-meowmenu-plugin.pot").read_text(encoding="utf-8")
         self.assertNotIn("Matteo Bonanomi", pot)
@@ -196,14 +196,14 @@ class RepositoryPresentationTest(unittest.TestCase):
                 )
                 merged = output.read_text(encoding="utf-8")
                 self.assertIn(
-                    "<id>io.github.matteobonanomi.xfce4-meowmenu-plugin</id>",
+                    "<id>io.github.PatrickNoFilter.xfce4-ou-menu-plugin</id>",
                     merged,
                 )
                 self.assertIn(
-                    '<name translate="no">Matteo Bonanomi</name>',
+                    '<name translate="no">PatrickNoFilter</name>',
                     merged,
                 )
-                self.assertNotIn('xml:lang="it"><name>Matteo Bonanomi', merged)
+                self.assertNotIn('xml:lang="it"><name>PatrickNoFilter', merged)
 
             italian = (Path(temporary) / "it.xml").read_text(encoding="utf-8")
             self.assertIn(
@@ -215,7 +215,7 @@ class RepositoryPresentationTest(unittest.TestCase):
                     encoding="utf-8"
                 )
                 self.assertIn(
-                    "<summary>Modern menu launcher plugin for the Xfce panel</summary>",
+                    "<summary>OU Linux menu launcher plugin for the Xfce panel</summary>",
                     fallback,
                 )
 

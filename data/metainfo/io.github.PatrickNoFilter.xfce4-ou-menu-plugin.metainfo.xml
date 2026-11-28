@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>io.github.PatrickNoFilter.xfce4-ou-menu-plugin</id>
+  <extends>xfce4-panel.desktop</extends>
+  <name>OU Menu</name>
+  <summary>OU Linux menu launcher plugin for the Xfce panel</summary>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0-or-later</project_license>
+
+  <description>
+    <p>
+      OU Menu is the OU Linux application launcher for the Xfce panel. It is
+      a fork of MeowMenu by Matteo Bonanomi, itself a fork of Xfce's Whisker
+      Menu, with OU branding, an OU Setting dialog, and a Wallpaper page for
+      changing desktop and login backgrounds.
+    </p>
+  </description>
+
+  <url type="homepage">https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin</url>
+  <url type="bugtracker">https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/issues</url>
+
+  <developer id="io.github.PatrickNoFilter">
+    <name translate="no">PatrickNoFilter</name>
+  </developer>
+
+  <provides>
+    <binary>xfce4-popup-meowmenu</binary>
+  </provides>
+
+  <content_rating type="oars-1.1"/>
+</component>

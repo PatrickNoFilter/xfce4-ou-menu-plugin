@@ -27,11 +27,11 @@ customization, and an optional inline Calculator.
 Not sure which release to choose? See [Support and compatibility](support).
 
 For feedback, use an
-[ordinary bug report](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/issues/new?template=bug-report.yml)
+[ordinary bug report](https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/issues/new?template=bug-report.yml)
 or a
-[compatibility report](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/issues/new?template=compatibility-report.yml).
+[compatibility report](https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/issues/new?template=compatibility-report.yml).
 Contributors can start with the
-[contribution guide](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/blob/main/CONTRIBUTING.md).
+[contribution guide](https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/blob/main/CONTRIBUTING.md).
 
 MeowMenu originated as a fork of
 [Whisker Menu](https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin)

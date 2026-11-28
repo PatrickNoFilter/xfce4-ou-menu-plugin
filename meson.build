@@ -153,7 +153,7 @@ extra_cflags += [
   '-DPACKAGE_DATADIR="@0@"'.format(pkgdatadir),
   '-DCOPYRIGHT_YEAR="@0@"'.format(copyright_year),
   '-DPACKAGE_LOCALE_DIR="@0@"'.format(get_option('prefix') / get_option('localedir')),
-  '-DPACKAGE_BUGREPORT="https://github.com/matteobonanomi/xfce4-meowmenu-plugin/issues"',
+  '-DPACKAGE_BUGREPORT="https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/issues"',
   '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()),
   '-DPREFIX="@0@"'.format(get_option('prefix')),
   '-DBINDIR="@0@"'.format(get_option('prefix') / get_option('bindir')),
@@ -205,8 +205,8 @@ install_data(
 
 # Generate and install localized AppStream metadata from the main catalog.
 i18n.merge_file(
-  input: 'data' / 'metainfo' / 'io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml',
-  output: 'io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml',
+  input: 'data' / 'metainfo' / 'io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml',
+  output: 'io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml',
   po_dir: 'po',
   type: 'xml',
   install: true,

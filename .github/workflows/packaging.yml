@@ -235,7 +235,7 @@ jobs:
           fi
           apt-get install -y --no-install-recommends appstream lintian
           appstreamcli validate --no-net \
-            data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml
+            data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml
           lintian "$package" | tee ../lintian.log || true
           apt-get install -y "$package"
           test "$(dpkg-query -W -f='${Version}' xfce4-meowmenu-plugin)" = "$DEBIAN_VERSION"
@@ -321,7 +321,7 @@ jobs:
           fi
           dnf -y install appstream rpmlint
           appstreamcli validate --no-net \
-            "xfce4-meowmenu-plugin-${VERSION}/data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml"
+            "xfce4-meowmenu-plugin-${VERSION}/data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml"
           rpmlint "$spec" "$package" | tee rpmlint.log || true
           dnf -y install "$package"
           test "$(rpm -q --qf '%{VERSION}-%{RELEASE}\n' xfce4-meowmenu-plugin)" = \
@@ -449,7 +449,7 @@ jobs:
           python3 release-tools/tests/test_documentation_links.py
           python3 release-tools/tests/test_translation_status.py
           appstreamcli validate --no-net \
-            candidate/data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml
+            candidate/data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml
 
       - name: Download Ubuntu DEB
         uses: actions/download-artifact@v8

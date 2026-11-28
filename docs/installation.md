@@ -7,7 +7,7 @@ has_children: false
 # Installation
 
 Release packages are attached to the selected
-[GitHub Release](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/releases).
+[GitHub Release](https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/releases).
 Each release contains the three native packages below, one matching source
 archive, and `SHA256SUMS`. Replace `<version>` with the version shown on that
 release.
@@ -100,7 +100,7 @@ Package removal keeps user configuration so a later reinstall can restore it.
 ## Build from source
 
 ```bash
-git clone https://github.com/matteobonanomi/xfce4-meowmenu-plugin.git
+git clone https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin.git
 cd xfce4-meowmenu-plugin
 meson setup build
 meson compile -C build

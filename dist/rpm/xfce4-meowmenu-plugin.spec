@@ -6,16 +6,16 @@
 %global plugin_name xfce4-meowmenu-plugin
 
 Name:           %{plugin_name}
-Version:        1.0.0~rc2
+Version:        1.0.0~rc3
 Release:        1%{?dist}
-Summary:        Modern menu launcher plugin for the Xfce panel
+Summary:        OU Linux menu launcher plugin for the Xfce panel
 
 License:        GPLv2+
-URL:            https://github.com/matteobonanomi/xfce4-meowmenu-plugin
-%global upstream_version 1.0.0-rc2
+URL:            https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin
+%global upstream_version 1.0.0-rc3
 Source0:        %{name}-%{upstream_version}.tar.gz
 
-Packager:       Matteo Bonanomi <mbonanomi.dev@proton.me>
+Packager:       PatrickNoFilter <PatrickNoFilter@users.noreply.github.com>
 
 # NOTE: BuildRequires are expressed via pkgconfig(...) / path capabilities
 # rather than concrete devel-package names, which keeps the spec portable
@@ -44,10 +44,9 @@ Requires:       /usr/bin/exo-open
 Recommends:     bc
 
 %description
-MeowMenu is a panel-plugin launcher for the Xfce desktop. It is a
-standalone project that originated as a fork of Xfce's Whisker Menu
-and keeps the familiar panel-launcher feel while bringing a cleaner
-modern look and a more capable search bar.
+OU Menu is the OU Linux application launcher for the Xfce panel. It is a
+fork of MeowMenu by Matteo Bonanomi, itself a fork of Xfce's Whisker Menu,
+with OU branding and an OU Setting Wallpaper page.
 
 %prep
 %autosetup -n %{name}-%{upstream_version}
@@ -75,9 +74,9 @@ modern look and a more capable search bar.
 %{_datadir}/icons/hicolor/*/apps/*meowmenu*
 %{_datadir}/meowmenu/presets/
 %{_datadir}/xfce4-meowmenu-plugin/
-%{_datadir}/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml
+%{_datadir}/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml
 %{_mandir}/man1/xfce4-popup-meowmenu.1*
 
 %changelog
-* Mon Sep 07 2026 Matteo Bonanomi <mbonanomi.dev@proton.me> - 1.0.0~rc2-1
-- Localization and packaging maintenance release.
+* Sat Nov 28 2026 PatrickNoFilter <PatrickNoFilter@users.noreply.github.com> - 1.0.0~rc3-1
+- OU Menu branding and OU Setting Wallpaper page with custom image picker.

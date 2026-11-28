@@ -13,7 +13,7 @@ marked as fluent-reviewed until a maintainer records that review.
 
 To improve a language, edit `po/<locale>.po`, run
 `msgfmt --check po/<locale>.po`, and
-[open a pull request](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/pulls).
+[open a pull request](https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/pulls).
 
 <!-- BEGIN GENERATED TRANSLATION STATUS -->
 
@@ -28,7 +28,7 @@ Coverage is the only percentage shown: translated messages divided by that compl
 | `be` | Pass | 158 | 0 | 121 | 0 | 57% | Not reviewed |
 | `bg` | Pass | 188 | 0 | 91 | 0 | 67% | Not reviewed |
 | `ca` | Pass | 186 | 0 | 93 | 0 | 67% | Not reviewed |
-| `ca@valencia` | Pass | 144 | 0 | 135 | 0 | 52% | Not reviewed |
+| `ca@valencia` | Pass | 144 | 0 | 134 | 1 | 52% | Not reviewed |
 | `cs` | Pass | 188 | 0 | 91 | 0 | 67% | Not reviewed |
 | `cy` | Pass | 143 | 0 | 136 | 0 | 51% | Not reviewed |
 | `da` | Pass | 186 | 0 | 93 | 0 | 67% | Not reviewed |
@@ -49,7 +49,7 @@ Coverage is the only percentage shown: translated messages divided by that compl
 | `id` | Pass | 180 | 0 | 99 | 0 | 65% | Not reviewed |
 | `ie` | Pass | 175 | 0 | 104 | 0 | 63% | Not reviewed |
 | `is` | Pass | 174 | 0 | 105 | 0 | 62% | Not reviewed |
-| `it` | Pass | 279 | 0 | 0 | 0 | 100% | Pending maintainer review |
+| `it` | Pass | 278 | 0 | 0 | 1 | 100% | Pending maintainer review |
 | `ja` | Pass | 168 | 0 | 111 | 0 | 60% | Not reviewed |
 | `ka` | Pass | 186 | 0 | 93 | 0 | 67% | Not reviewed |
 | `kk` | Pass | 186 | 0 | 93 | 0 | 67% | Not reviewed |
@@ -69,7 +69,7 @@ Coverage is the only percentage shown: translated messages divided by that compl
 | `sk` | Pass | 188 | 0 | 91 | 0 | 67% | Not reviewed |
 | `sl` | Pass | 188 | 0 | 91 | 0 | 67% | Not reviewed |
 | `sr` | Pass | 186 | 0 | 93 | 0 | 67% | Not reviewed |
-| `sr@latin` | Pass | 143 | 0 | 136 | 0 | 51% | Not reviewed |
+| `sr@latin` | Pass | 143 | 0 | 135 | 1 | 51% | Not reviewed |
 | `sv` | Pass | 186 | 0 | 93 | 0 | 67% | Not reviewed |
 | `th` | Pass | 186 | 0 | 93 | 0 | 67% | Not reviewed |
 | `tr` | Pass | 188 | 0 | 91 | 0 | 67% | Not reviewed |

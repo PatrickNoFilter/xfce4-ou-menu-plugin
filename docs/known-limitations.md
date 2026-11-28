@@ -48,6 +48,6 @@ confirmed defects.
   optional checks, not publication gates by themselves.
 
 Confirmed problems should be filed in the
-[issue tracker](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/issues)
+[issue tracker](https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/issues)
 with a reproducible environment. When a boundary becomes a confirmed defect,
 this page will link its issue.

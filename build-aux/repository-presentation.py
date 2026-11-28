@@ -26,7 +26,7 @@ CURRENT_VERSION_FILES = (
     ".github/SECURITY.md",
     ".github/ISSUE_TEMPLATE/bug-report.yml",
     ".github/ISSUE_TEMPLATE/compatibility-report.yml",
-    "data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml",
+    "data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml",
 )
 CURRENT_GUIDANCE_FILES = (
     "README.md",
@@ -368,7 +368,7 @@ def violations(root: Path):
         "debian/control",
         "dist/rpm/xfce4-meowmenu-plugin.spec",
         "dist/arch/PKGBUILD",
-        "data/metainfo/io.github.matteobonanomi.xfce4-meowmenu-plugin.metainfo.xml",
+        "data/metainfo/io.github.PatrickNoFilter.xfce4-ou-menu-plugin.metainfo.xml",
     ):
         content = (root / package_file).read_text(encoding="utf-8")
         if "Built for Xubuntu" in content:

@@ -50,10 +50,10 @@ There is no need to complete every optional check.
 ## Report a result
 
 For a problem, open an
-[ordinary bug report](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/issues/new?template=bug-report.yml).
+[ordinary bug report](https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/issues/new?template=bug-report.yml).
 
 If MeowMenu works and you want to share your system details, use a
-[compatibility report](https://github.com/matteobonanomi/xfce4-meowmenu-plugin/issues/new?template=compatibility-report.yml).
+[compatibility report](https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin/issues/new?template=compatibility-report.yml).
 
 Describe what you tried and what happened. Screenshots are helpful for visual
 problems, but they are not required.

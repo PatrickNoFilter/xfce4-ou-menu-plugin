@@ -81,7 +81,7 @@ launcher_uri="file:///tmp/Meow%20Menu%20%27safe%27.desktop"
 # The chooser is an in-process API, so record its regime selection directly.
 printf 'interaction=icon-chooser\tfacility=%s\tresult=selected\n' "$chooser"
 
-"$opener" --launch WebBrowser "https://github.com/matteobonanomi/xfce4-meowmenu-plugin"
+"$opener" --launch WebBrowser "https://github.com/PatrickNoFilter/xfce4-ou-menu-plugin"
 "$opener" --launch TerminalEmulator man "xfce4-popup-meowmenu"
 "$opener" --launch WebBrowser "https://duckduckgo.com/?q=meow%20menu"
 "$opener" --launch WebBrowser "https://en.wikipedia.org/wiki/Xfce"
