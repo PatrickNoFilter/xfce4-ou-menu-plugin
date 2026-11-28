@@ -9,7 +9,7 @@ has_children: false
 
 ![MeowMenu demo](assets/images/demo.gif)
 
-MeowMenu is a native Xfce panel launcher. It adds saved presets, Places and
+OU Menu is the OU Linux build of MeowMenu, a native Xfce panel launcher. It adds saved presets, Places and
 file search, flexible layouts, drag-and-drop actions, deep visual
 customization, and an optional inline Calculator.
 

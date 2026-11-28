@@ -11,7 +11,7 @@ copyright notices.
 ## About OU Linux
 
 OU Menu is developed as the application launcher for **OU Linux (Orang Utan Linux)**,
-a Debian 13 based distribution in the Akar (Alpha) series. See the
+a Debian 13 based distribution in the Batang (Beta) series. See the
 [OU Linux repository](https://github.com/PatrickNoFilter/ou-linux-akar) for the
 distribution, ISO details, and screenshots.
 
