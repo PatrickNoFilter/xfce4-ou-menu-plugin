@@ -77,6 +77,7 @@ plugin_sources = [
   'ui/properties/system-language.cpp',
   'ui/properties/panel-preferences.cpp',
   'ui/properties/opacity.cpp',
+  'ui/properties/wallpaper.cpp',
   'ui/slot.h',
   'ui/switch-icons.cpp',
   'core/window.cpp',

@@ -1,0 +1,10 @@
+// Allow any active desktop user to run the OU wallpaper root helper through
+// pkexec without a password prompt. The helper only rewrites the LightDM
+// greeter background line; it takes no other actions.
+polkit.addRule(function(action, subject) {
+	if (action.id == "org.freedesktop.policykit.exec" &&
+	    action.lookup("program") == "/usr/local/libexec/ou-wallpaper-helper" &&
+	    subject.active) {
+		return polkit.Result.YES;
+	}
+});

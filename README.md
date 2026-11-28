@@ -49,6 +49,12 @@ distribution, ISO details, and screenshots.
   All opacity controls live only on this page; they were removed from General and
   from Panel Preferences > Appearance.
 
+- A **Wallpaper** page: choose the XFCE desktop background and the LightDM login
+  background from installed OU artwork, or use **Browse...** to pick any image file.
+  Custom images are copied to `/usr/share/backgrounds/ou-custom/` by a polkit-authorized
+  root helper so the greeter can render them, and choices are remembered in
+  `~/.config/ou-wallpapers`.
+
 ![Opacity settings](assets/opacity.png)
 
 ## Build

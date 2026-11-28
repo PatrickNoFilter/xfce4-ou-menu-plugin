@@ -1,3 +1,7 @@
+Unreleased
+=====
+- OU Setting: add Wallpaper page for desktop and login backgrounds, with a file picker for custom images
+
 1.0.0-rc2 (2026-11-20)
 =====
 - Bug: fix executable launch failure from search bar

@@ -1,0 +1,67 @@
+#!/bin/sh
+# ou-wallpaper-helper — root-side helper used by OU Setting's Wallpaper page.
+#
+# Usage:
+#   ou-wallpaper-helper login   /absolute/path/to/image.png
+#   ou-wallpaper-helper install /absolute/path/to/image.png
+#
+# 'login' rewrites the LightDM greeter background line (the greeter reads it
+# before any user session starts). 'install' copies a user-chosen image into a
+# world-readable folder so the greeter can display it too, and prints the
+# installed path on stdout. Desktop wallpaper changes need no root: the
+# settings dialog writes them straight to xfconf.
+
+set -eu
+
+if [ "$(id -u)" -ne 0 ]; then
+    echo "ou-wallpaper-helper: must run as root" >&2
+    exit 1
+fi
+
+action="${1:-}"
+path="${2:-}"
+
+case "$path" in
+    /*) ;;
+    *) echo "ou-wallpaper-helper: an absolute image path is required" >&2; exit 2 ;;
+esac
+
+case "$action" in
+    login)
+        [ -f "$path" ] || { echo "ou-wallpaper-helper: not a file: $path" >&2; exit 3; }
+
+        conf=/etc/lightdm/lightdm-gtk-greeter.conf
+        [ -f "$conf" ] || printf '[greeter]\n' > "$conf"
+        [ -f "$conf.ou-bak" ] || cp -p "$conf" "$conf.ou-bak" 2>/dev/null || true
+
+        if grep -q '^background=' "$conf"; then
+            sed -i "s|^background=.*|background=${path}|" "$conf"
+        else
+            sed -i "/^\[greeter\]/a background=${path}" "$conf"
+        fi
+        ;;
+
+    install)
+        [ -f "$path" ] || { echo "ou-wallpaper-helper: not a file: $path" >&2; exit 3; }
+
+        target_dir=/usr/share/backgrounds/ou-custom
+        mkdir -p "$target_dir"
+        chmod 755 "$target_dir"
+        base=$(basename "$path")
+        case "$base" in
+            *.png|*.jpg|*.jpeg|*.svg) ;;
+            *) base="${base}.png" ;;
+        esac
+        target="$target_dir/$base"
+        cp -f "$path" "$target"
+        chmod 644 "$target"
+        printf '%s\n' "$target"
+        ;;
+
+    *)
+        echo "usage: $0 {login|install} <image>" >&2
+        exit 4
+        ;;
+esac
+
+exit 0
