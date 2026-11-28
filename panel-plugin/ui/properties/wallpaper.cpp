@@ -16,6 +16,7 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
 #include <xfconf/xfconf.h>
+#include <pango/pango.h>
 
 #include <algorithm>
 #include <cstring>
@@ -150,6 +151,27 @@ std::string browse_image(GtkWidget* parent)
 	}
 	gtk_widget_destroy(dialog);
 	return result;
+}
+
+/* Keep long image filenames from stretching the Wallpaper page: clip the
+ * combo's cell text with an ellipsis and cap its natural width. */
+void limit_combo_width(GtkWidget* combo)
+{
+	gtk_widget_set_hexpand(combo, false);
+	gtk_widget_set_size_request(combo, 180, -1);
+
+	GList* cells = gtk_cell_layout_get_cells(GTK_CELL_LAYOUT(combo));
+	for (GList* item = cells; item != nullptr; item = item->next)
+	{
+		if (GTK_IS_CELL_RENDERER_TEXT(item->data))
+		{
+			g_object_set(item->data,
+				"ellipsize", PANGO_ELLIPSIZE_END,
+				"max-width-chars", 20,
+				nullptr);
+		}
+	}
+	g_list_free(cells);
 }
 
 void browse_and_set(GtkComboBoxText* combo, GtkWidget* status)
@@ -369,6 +391,8 @@ GtkWidget* SettingsDialog::init_wallpaper_tab()
 	GtkWidget* desktop_combo = gtk_combo_box_text_new();
 	GtkWidget* login_label = gtk_label_new_with_mnemonic("_Login background:");
 	GtkWidget* login_combo = gtk_combo_box_text_new();
+	limit_combo_width(desktop_combo);
+	limit_combo_width(login_combo);
 
 	for (const std::string& path : wallpapers)
 	{
@@ -407,6 +431,7 @@ GtkWidget* SettingsDialog::init_wallpaper_tab()
 
 	GtkWidget* status = gtk_label_new("");
 	gtk_label_set_line_wrap(GTK_LABEL(status), TRUE);
+	gtk_label_set_max_width_chars(GTK_LABEL(status), 56);
 	gtk_label_set_xalign(GTK_LABEL(status), 0.0);
 	gtk_widget_set_halign(status, GTK_ALIGN_START);
 
@@ -414,6 +439,10 @@ GtkWidget* SettingsDialog::init_wallpaper_tab()
 	GtkWidget* login_browse = gtk_button_new_with_label(_("Browse..."));
 	add_form_row(grid, COLUMN_C2, 0, nullptr, desktop_browse, false, nullptr);
 	add_form_row(grid, COLUMN_C2, 1, nullptr, login_browse, false, nullptr);
+	gtk_widget_set_hexpand(desktop_browse, false);
+	gtk_widget_set_hexpand(login_browse, false);
+	gtk_widget_set_size_request(desktop_browse, 80, -1);
+	gtk_widget_set_size_request(login_browse, 80, -1);
 
 	connect(desktop_browse, "clicked", [desktop_combo, status](GtkButton*)
 	{
@@ -459,6 +488,7 @@ GtkWidget* SettingsDialog::init_wallpaper_tab()
 		"use Browse to choose any image from your files; custom images are "
 		"copied to a folder the greeter can read.");
 	gtk_label_set_line_wrap(GTK_LABEL(note), TRUE);
+	gtk_label_set_max_width_chars(GTK_LABEL(note), 56);
 	gtk_label_set_xalign(GTK_LABEL(note), 0.0);
 	gtk_widget_set_halign(note, GTK_ALIGN_START);
 	gtk_box_pack_start(GTK_BOX(page), note, false, false, 0);
